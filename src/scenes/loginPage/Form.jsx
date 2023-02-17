@@ -1,5 +1,4 @@
 import { useState } from "react";
-import EditOutlinedIcon from "@mui/icons-material/EditOutlined";
 import {
   Box,
   Button,
@@ -8,6 +7,7 @@ import {
   Typography,
   useTheme,
 } from "@mui/material";
+import EditOutlinedIcon from "@mui/icons-material/EditOutlined";
 import { Formik } from "formik";
 import * as yup from "yup";
 import { useNavigate } from "react-router-dom";
@@ -84,7 +84,6 @@ const Form = () => {
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify(values),
     });
-
     const loggedIn = await loggedInResponse.json();
     onSubmitProps.resetForm();
     if (loggedIn) {
@@ -99,14 +98,14 @@ const Form = () => {
   };
 
   const handleFormSubmit = async (values, onSubmitProps) => {
-    if (isLogin) await loginSchema(values, onSubmitProps);
+    if (isLogin) await login(values, onSubmitProps);
     if (isRegister) await register(values, onSubmitProps);
   };
 
   return (
     <Formik
       onSubmit={handleFormSubmit}
-      initalValues={isLogin ? initialValuesLogin : initialValuesRegister}
+      initialValues={isLogin ? initialValuesLogin : initialValuesRegister}
       validationSchema={isLogin ? loginSchema : registerSchema}
     >
       {({
@@ -123,7 +122,7 @@ const Form = () => {
           <Box
             display="grid"
             gap="30px"
-            gridTemplateColumns="repeat(4,minmax(0, 1fr))"
+            gridTemplateColumns="repeat(4, minmax(0, 1fr))"
             sx={{
               "& > div": { gridColumn: isNonMobile ? undefined : "span 4" },
             }}
@@ -166,12 +165,12 @@ const Form = () => {
                   label="Occupation"
                   onBlur={handleBlur}
                   onChange={handleChange}
-                  value={values.Occupation}
-                  name="Occupation"
+                  value={values.occupation}
+                  name="occupation"
                   error={
-                    Boolean(touched.Occupation) && Boolean(errors.Occupation)
+                    Boolean(touched.occupation) && Boolean(errors.occupation)
                   }
-                  helperText={touched.Occupation && errors.Occupation}
+                  helperText={touched.occupation && errors.occupation}
                   sx={{ gridColumn: "span 4" }}
                 />
                 <Box
@@ -183,20 +182,20 @@ const Form = () => {
                   <Dropzone
                     acceptedFiles=".jpg,.jpeg,.png"
                     multiple={false}
-                    onDrop={(acceptedFiles) => {
-                      setFieldValue("picture", acceptedFiles[0]);
-                    }}
+                    onDrop={(acceptedFiles) =>
+                      setFieldValue("picture", acceptedFiles[0])
+                    }
                   >
                     {({ getRootProps, getInputProps }) => (
                       <Box
                         {...getRootProps()}
-                        border={`1px dashed ${palette.primary.main}`}
+                        border={`2px dashed ${palette.primary.main}`}
                         p="1rem"
                         sx={{ "&:hover": { cursor: "pointer" } }}
                       >
                         <input {...getInputProps()} />
-                        {!values.picutre ? (
-                          <p> Add Picture Here</p>
+                        {!values.picture ? (
+                          <p>Add Picture Here</p>
                         ) : (
                           <FlexBetween>
                             <Typography>{values.picture.name}</Typography>
@@ -232,10 +231,11 @@ const Form = () => {
               sx={{ gridColumn: "span 4" }}
             />
           </Box>
-          {/* Buttons */}
+
+          {/* BUTTONS */}
           <Box>
             <Button
-              fullwidth
+              fullWidth
               type="submit"
               sx={{
                 m: "2rem 0",
