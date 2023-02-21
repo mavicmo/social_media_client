@@ -20,7 +20,6 @@ const UserWidget = ({ userId, picturePath }) => {
   const dark = palette.neutral.dark;
   const medium = palette.neutral.medium;
   const main = palette.neutral.main;
-  console.log(picturePath);
 
   const getUser = async () => {
     const response = await fetch(`http://localhost:3001/users/${userId}`, {

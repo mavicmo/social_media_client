@@ -7,6 +7,7 @@ import UserWidget from "scenes/widgets/UserWidget";
 function HomePage() {
   const isNonMobileScreens = useMediaQuery("(min-width:1000px)");
   const { _id, picturePath } = useSelector((state) => state.user);
+  console.log(picturePath);
 
   return (
     <Box>
@@ -24,7 +25,9 @@ function HomePage() {
         <Box
           flexBasis={isNonMobileScreens ? "42%" : undefined}
           mt={isNonMobileScreens ? undefined : "2rem"}
-        ></Box>
+        >
+          <MyPostWidget picturePath={picturePath} />
+        </Box>
         {isNonMobileScreens && <Box flexBasis="26%"></Box>}
       </Box>
     </Box>
